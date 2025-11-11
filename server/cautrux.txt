@@ -1,0 +1,15 @@
+server/
+├── config/
+│   └── db.js           
+├── controllers/
+│   └── authController.js  
+|   |__middleware.js
+|   |__userController.js
+├── models/
+│   └── User.js         
+├── routes/
+│   └── auth.js  
+|   |___user.js
+├── middleware
+├── index.js            
+└── package.json

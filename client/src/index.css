@@ -1,0 +1,15 @@
+/* Các chỉ thị Tailwind bắt buộc */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Reset CSS toàn cục đặt trong @layer base */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}

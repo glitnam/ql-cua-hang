@@ -1,0 +1,27 @@
+src/
+├── assets/                 
+├── components/  
+|      ├── products/            # Quản lý sản phẩm
+|      ├── foodter.jsx        
+│      ├── Navbar.jsx               
+├── features/               
+│   ├── auth/                     
+|        |---authService.jsx
+|        |---Login.jsx
+|        |---LoginFornm.jsx
+|        |--Register.jsx
+|        |---RegisterForm.jsx
+|   |---cart
+|   |---order
+|   |---products
+|   |---user 
+├── layouts/                
+│   ├── AdminLayout.jsx    
+│   ├── UserLayout.jsx      
+├── pages/                   
+│   ├── HomePage.jsx
+├── routes/                  
+├── store/                   
+├── utils/                   
+└── App.jsx                 
+
