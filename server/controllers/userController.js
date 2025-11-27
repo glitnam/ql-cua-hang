@@ -5,7 +5,12 @@ const userController = {
   getAllUser: async (req, res) => {
     try {
       const users = await User.find();
-      res.status(200).json(users);
+      const formattedUsers = users.map(user => ({
+        ...user._doc,
+        birthday: user.birthday ? user.birthday.toISOString().split("T")[0] : null
+      }));
+
+      res.status(200).json(formattedUsers);
     } catch (err) {
       res.status(500).json(err);
     }

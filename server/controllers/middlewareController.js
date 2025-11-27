@@ -16,10 +16,9 @@ const middlewareController = {
         }
     },
 
-    // Kiểm tra user hoặc admin
     verifyTokenAndUserAuth: (req, res, next) => {
         middlewareController.verifyToken(req, res, () => {
-            if (req.user.id === req.params.id || req.user.admin) {
+            if (req.user.id === req.params.id || req.user.role === "admin") {
                 next();
             } else {
                 res.status(403).json("Bạn không được phép cập nhật người dùng này");
@@ -27,10 +26,19 @@ const middlewareController = {
         });
     },
 
-    // Chỉ admin
     verifyTokenAndAdminAuth: (req, res, next) => {
         middlewareController.verifyToken(req, res, () => {
-            if (req.user.admin) {
+            if (req.user.role === "admin") {
+                next();
+            } else {
+                res.status(403).json("You're not allowed to perform this action");
+            }
+        });
+    },
+
+    verifyTokenAndAdminOrStaff: (req, res, next) => {
+        middlewareController.verifyToken(req, res, () => {
+            if (req.user.role === "admin" || req.user.role === "staff") {
                 next();
             } else {
                 res.status(403).json("You're not allowed to perform this action");
