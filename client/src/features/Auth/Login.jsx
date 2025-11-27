@@ -26,8 +26,8 @@ function Login() {
       window.dispatchEvent(new Event("userChanged"));
 
       //  Chuyển hướng trang sau login
-      if (role === "admin") {
-        navigate("/admin/dashboard", { replace: true });
+      if (user.role === "admin" || user.role === "staff") {
+        navigate("/admin/users", { replace: true });
       } else {
         navigate("/", { replace: true });
       }

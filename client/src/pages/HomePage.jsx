@@ -7,10 +7,7 @@ export default function HomePage() {
       className="relative h-[90vh] flex items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: `url(${banner})` }}
     >
-      {/* Overlay để làm tối ảnh nền nếu cần */}
       <div className="absolute inset-0 bg-black/30"></div>
-
-      {/* Nội dung banner */}
       <div className="relative z-10 text-center text-white px-4">
         <h1 className="text-4xl md:text-6xl font-bold mb-4">Nshop</h1>
         <p className="text-lg md:text-2xl mb-6">
