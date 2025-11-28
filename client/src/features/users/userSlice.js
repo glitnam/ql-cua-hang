@@ -5,7 +5,7 @@ export const fetchUsers = createAsyncThunk(
   "user/fetchUsers",
   async () => {
     const res = await userService.getUsers();
-    return res.data; // backend trả dữ liệu gì thì lấy cái đó
+    return res.data; 
   }
 );
 

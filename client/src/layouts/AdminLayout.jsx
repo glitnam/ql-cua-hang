@@ -1,89 +1,79 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 export default function AdminLayout() {
-  // Giả sử bạn lấy user info từ localStorage hoặc context
-  const user = JSON.parse(localStorage.getItem("user")) || null;
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
+  const navigate = useNavigate();
+
+  // Lắng nghe event userChanged
+  useEffect(() => {
+    const handleUserChange = () => {
+      const updatedUser = localStorage.getItem("user");
+      setUser(updatedUser ? JSON.parse(updatedUser) : null);
+    };
+    window.addEventListener("userChanged", handleUserChange);
+    return () => window.removeEventListener("userChanged", handleUserChange);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
+    setUser(null);
+    window.dispatchEvent(new Event("userChanged"));
+    navigate("/login");
+  };
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
-      {/* Sidebar menu */}
-      <nav
-        style={{
-          width: 200,
-          background: "#eee",
-          padding: 20,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between", // đẩy footer xuống dưới
-        }}
-      >
-        <div>
-          <h2 className="textsize:50px">ADMIN HOME</h2>
-          <ul style={{ listStyle: "none", padding: 0 }}>
-            <li>
-              <NavLink
-                to="/admin/users"
-                style={({ isActive }) => ({
-                  fontWeight: isActive ? "bold" : "normal",
-                })}
-              >
-                Quản lý Users
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/admin/employees"
-                style={({ isActive }) => ({
-                  fontWeight: isActive ? "bold" : "normal",
-                })}
-              >
-                Quản lý Nhân viên
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/admin/products"
-                style={({ isActive }) => ({
-                  fontWeight: isActive ? "bold" : "normal",
-                })}
-              >
-                Quản lý Sản phẩm
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/"
-                style={({ isActive }) => ({
-                  fontWeight: isActive ? "bold" : "normal",
-                })}
-              >
-                trang chu
-              </NavLink>
-            </li>
+    <div className="flex min-h-screen">
+      <nav className="w-52 bg-gray-200 p-5 flex flex-col justify-between">
+        <div className="p-4">
+          <h2 className="text-2xl font-bold mb-4 text-gray-800">ADMIN HOME</h2>
+          <ul className="space-y-2">
+            {[
+              { to: "/admin/users", label: "Quản lý Users" },
+              { to: "/admin/employees", label: "Quản lý Nhân viên" },
+              { to: "/admin/products", label: "Quản lý Sản phẩm" },
+              { to: "/", label: "Trang chủ" },
+            ].map((item) => (
+              <li key={item.to}>
+                <NavLink
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `block px-2 py-1 rounded transition-colors ${
+                      isActive
+                        ? "font-bold text-blue-600"
+                        : "text-gray-700 hover:text-blue-500"
+                    }`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </div>
 
-        {/* Phần session user ở dưới */}
         {user && (
-          <div
-            style={{
-              marginTop: 20,
-              borderTop: "1px solid #ccc",
-              paddingTop: 10,
-            }}
-          >
-            <p>
-              <strong>Đăng nhập bởi:</strong>
-            </p>
-            <p>{user.name || user.email}</p>
+          <div className="mt-5 border-t border-gray-300 pt-3">
+            <p className="font-semibold text-gray-700">Đăng nhập bởi:</p>
+            <p className="text-gray-600">{user.name || user.email}</p>
+            <div>
+              <button
+                className="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                onClick={handleLogout}
+              >
+                Đăng xuất
+              </button>
+            </div>
           </div>
         )}
       </nav>
 
-      {/* Nội dung chính */}
-      <main style={{ flex: 1, padding: 20 }}>
-        <Outlet /> {/* Route con sẽ render ở đây */}
+      <main className="flex-1 p-5">
+        <Outlet />
       </main>
     </div>
   );

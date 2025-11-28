@@ -15,8 +15,7 @@ const userController = {
       res.status(500).json(err);
     }
   },
-
-  // DELETE user
+//delete
   deleteUser: async (req, res) => {
     try {
       const user = await User.findByIdAndDelete(req.params.id);

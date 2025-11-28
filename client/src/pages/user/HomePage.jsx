@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import banner from "../assets/mau-banner-quang-cao-khuyen-mai.jpg";
+import banner from "../../assets/mau-banner-quang-cao-khuyen-mai.jpg";
 export default function HomePage() {
   return (
     <section

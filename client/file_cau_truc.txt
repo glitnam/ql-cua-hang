@@ -1,11 +1,10 @@
 src/
 ├── assets/                 
 ├── components/  
-|      ├── products/            # Quản lý sản phẩm
 |      ├── foodter.jsx        
 │      ├── Navbar.jsx               
 ├── features/               
-│   ├── auth/                     
+│   ├── Auth/                     
 |        |---authService.jsx
 |        |---Login.jsx
 |        |---LoginFornm.jsx
@@ -15,13 +14,23 @@ src/
 |   |---order
 |   |---products
 |   |---user 
+|       |--UserList.jsx
+|       |--userService.js
+|       |--userSlice.js
 ├── layouts/                
 │   ├── AdminLayout.jsx    
 │   ├── UserLayout.jsx      
-├── pages/                   
-│   ├── HomePage.jsx
-├── routes/                  
-├── store/                   
+├── pages/
+|   |---Admin
+|       |---UserCreatePage.jsx
+|       |---UserEditPage.jsx
+|       |---UserListPage.jsx
+|   |---user             
+│       ├── HomePage.jsx
+├── routes/
+|       |--adminRoutes.jsx                  
+├── store/    
+|       |---store.js               
 ├── utils/                   
 └── App.jsx                 
 
