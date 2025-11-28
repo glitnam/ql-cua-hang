@@ -10,8 +10,6 @@ const authController = {
     try {
       const salt = await bcrypt.genSalt(10);
       const hashed = await bcrypt.hash(req.body.password, salt);
-
-      // Tạo user mới
       const newUser = new User({
         username: req.body.username,
         email: req.body.email,
@@ -19,10 +17,10 @@ const authController = {
         phone: req.body.phone,
         birthday: req.body.birthday,
         address: req.body.address,
+        role: req.body.role||"user",
         
       });
 
-      // Lưu DB
       const user = await newUser.save();
       res.status(200).json(user);
     } catch (err) {
@@ -35,7 +33,7 @@ const authController = {
     return jwt.sign(
       {
         id: user.id,
-        admin: user.admin,
+        role: user.role,
       },
       process.env.JWT_ACCESS_KEY,
       { expiresIn: "1d" }
@@ -47,7 +45,7 @@ const authController = {
     return jwt.sign(
       {
         id: user.id,
-        admin: user.admin,
+        role: user.role,
       },
       process.env.JWT_REFRESH_KEY,
       { expiresIn: "365d" }
@@ -104,11 +102,9 @@ const authController = {
         console.log(err);
         return res.status(403).json("Refresh token hết hạn hoặc không hợp lệ!");
       }
-
-      // Xóa token cũ
       refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
 
-      // Tạo token mới
+   
       const newAccessToken = authController.generateAccessToken(user);
       const newRefreshToken = authController.generateRefreshToken(user);
 

@@ -9,6 +9,7 @@ function Register() {
   const [phone, setphone] = useState("");
   const [birthday, setbirthday] = useState("");
   const [address, setaddress] = useState("");
+  const [role, setRole] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +21,7 @@ function Register() {
         phone,
         birthday,
         address,
+        role,
       });
       console.log("Đăng ký thành công:", data);
       alert("Đăng ký thành công!");

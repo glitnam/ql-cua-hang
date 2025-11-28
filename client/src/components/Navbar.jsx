@@ -10,7 +10,6 @@ export default function Navbar({ cartCount = 0 }) {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  // 🔹 Lấy user từ localStorage khi load + khi có event userChanged
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     setUser(savedUser ? JSON.parse(savedUser) : null);
@@ -24,32 +23,28 @@ export default function Navbar({ cartCount = 0 }) {
     return () => window.removeEventListener("userChanged", handleUserChange);
   }, []);
 
-  // 🔹 Xử lý logout
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("user");
     setUser(null);
-    window.dispatchEvent(new Event("userChanged")); // cho chắc
+    window.dispatchEvent(new Event("userChanged"));
     navigate("/");
   };
 
   return (
     <header className="bg-customBeige shadow-md">
       <div className="mx-auto max-w-screen-xl flex items-center justify-between p-4">
-        {/* Logo */}
         <div className="text-2xl font-bold">
           <Link to="/">Nshop</Link>
         </div>
 
-        {/* Mobile search toggle */}
         <div className="md:hidden">
           <button onClick={() => setMobileOpen(!mobileOpen)}>
             <CiSearch className="w-6 h-6" />
           </button>
         </div>
 
-        {/* Tìm kiếm */}
         <form className="hidden md:flex items-center border border-black rounded-lg mr-40 flex-1 mx-4 h-10 bg-customBeige">
           <CiSearch className="ml-3 w-5 h-5 text-black" />
           <input
@@ -61,7 +56,6 @@ export default function Navbar({ cartCount = 0 }) {
           />
         </form>
 
-        {/* Menu sản phẩm */}
         <div className="relative group mr-4 z-50">
           <button className="flex items-center text-black hover:text-gray-900">
             Sản phẩm
@@ -97,10 +91,7 @@ export default function Navbar({ cartCount = 0 }) {
         <div className="relative mr-4">
           <button>Liên hệ</button>
         </div>
-
-        {/* Links + Icons */}
         <div className="hidden md:flex items-center space-x-6">
-          {/* Giỏ hàng */}
           {user ? (
             <Link
               to="/cart"
@@ -131,14 +122,11 @@ export default function Navbar({ cartCount = 0 }) {
               <IoBagHandleSharp className="w-6 h-6" />
             </button>
           )}
-
-          {/* Đăng nhập / Tài khoản */}
           {user ? (
             <div className="relative group">
               <button className="flex items-center text-gray-700 hover:text-gray-900">
                 <CiUser className="w-6 h-6" />
               </button>
-              {/* Dropdown khi login */}
               <div className="absolute right-0 mt-2 w-40 bg-white border rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50">
                 <Link
                   to="/profile"
