@@ -7,7 +7,6 @@ export default function AdminLayout() {
   );
   const navigate = useNavigate();
 
-  // Lắng nghe event userChanged
   useEffect(() => {
     const handleUserChange = () => {
       const updatedUser = localStorage.getItem("user");
@@ -33,10 +32,12 @@ export default function AdminLayout() {
           <h2 className="text-2xl font-bold mb-4 text-gray-800">ADMIN HOME</h2>
           <ul className="space-y-2">
             {[
-              { to: "/admin/users", label: "Quản lý Users" },
-              { to: "/admin/employees", label: "Quản lý Nhân viên" },
-              { to: "/admin/products", label: "Quản lý Sản phẩm" },
-              { to: "/", label: "Trang chủ" },
+              { to: "/", label: "Bảng điều khiển" },
+              { to: "/admin/users", label: "Quản lý người dùng" },
+              { to: "/admin/employees", label: "Quản lý nội bộ" },
+              { to: "/admin/category", label: "Quản lý Sản phẩm" },
+              { to: "/admin/oder", label: "Quản lý đơn hàng" },
+              { to: "/admin/renevue", label: "Báo cáo doanh thu" },
             ].map((item) => (
               <li key={item.to}>
                 <NavLink

@@ -10,9 +10,6 @@ src/
 |        |---LoginFornm.jsx
 |        |--Register.jsx
 |        |---RegisterForm.jsx
-|   |---cart
-|   |---order
-|   |---products
 |   |---user 
 |       |--UserList.jsx
 |       |--userService.js
@@ -22,7 +19,6 @@ src/
 │   ├── UserLayout.jsx      
 ├── pages/
 |   |---Admin
-|       |---UserCreatePage.jsx
 |       |---UserEditPage.jsx
 |       |---UserListPage.jsx
 |   |---user             
