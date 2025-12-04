@@ -17,8 +17,7 @@ const authController = {
         phone: req.body.phone,
         birthday: req.body.birthday,
         address: req.body.address,
-        role: req.body.role||"user",
-        
+        role: req.body.role||"user",        
       });
 
       const user = await newUser.save();
